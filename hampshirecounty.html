@@ -2,10 +2,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Hampsire County</title>
-	<meta charset="utf-8" />
+    <title>Hampsire County</title>
+    <meta charset="utf-8" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
  <script type="text/javascript" charset="utf-8" src="./counties.json"> </script>
  <script type="text/javascript" charset="utf-8" src="./CommunityActionServiceArea.json"></script>
@@ -13,36 +13,36 @@
  <!--[if lte IE 8]>
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
  <![endif]-->
-	<!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
 </head>
 <body>
-	<div id="map" style="width: 800px; height: 600px"></div>
+    <div id="map" style="width: 800px; height: 600px"></div>
  <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
 <script>
-		var map = L.map('map').setView([42.369373, -72.639241], 9);
+        var map = L.map('map').setView([42.369373, -72.639241], 9);
 
-		L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
-			attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
-			key: 'BC9A493B41014CAABB98F0471D759707'
-		}).addTo(map);
+        L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
+            key: 'BC9A493B41014CAABB98F0471D759707'
+        }).addTo(map);
 
-		L.geoJson(counties, { // Our data, an array from `ogr2ogr` output
-		    style: function (feature) {
-		        return {color: "blue"}; //Display color, our data does not have specific colors in the shapefile prodided.
-		    },
-		    onEachFeature: function (feature, layer) {
-		        layer.bindPopup("NOPE"); // description but not determinate by the item. Can call FIPS-id to describe.
-		    }
-		}).addTo(map);
+        L.geoJson(counties, { // Our data, an array from `ogr2ogr` output
+            style: function (feature) {
+                return {color: "blue"}; //Display color, our data does not have specific colors in the shapefile prodided.
+            },
+            onEachFeature: function (feature, layer) {
+                layer.bindPopup("NOPE"); // description but not determinate by the item. Can call FIPS-id to describe.
+            }
+        }).addTo(map);
 
-		L.geoJson(communityactionarea, {
-			style: {color: "red"}
-		}).addTo(map);
-		// Bind to zoom information
-		map.on("zoomend", function(){console.log(map.getZoom())});
-		map.on("moveend", function(){console.log(map.getCenter().toString())});
+        L.geoJson(communityactionarea, {
+            style: {color: "red"}
+        }).addTo(map);
+        // Bind to zoom information
+        map.on("zoomend", function(){console.log(map.getZoom())});
+        map.on("moveend", function(){console.log(map.getCenter().toString())});
 
-	</script>
+    </script>
 </body>
 </html>
 
