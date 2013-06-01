@@ -25,12 +25,12 @@
 			key: 'BC9A493B41014CAABB98F0471D759707'
 		}).addTo(map);
 
-		L.geoJson(counties, {
+		L.geoJson(counties, { // Our data, an array from `ogr2ogr` output
 		    style: function (feature) {
-		        return {color: "blue"};
+		        return {color: "blue"}; //Display color, our data does not have specific colors in the shapefile prodided.
 		    },
 		    onEachFeature: function (feature, layer) {
-		        layer.bindPopup("NOPE");
+		        layer.bindPopup("NOPE"); // description but not determinate by the item. Can call FIPS-id to describe.
 		    }
 		}).addTo(map);
 
