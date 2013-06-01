@@ -19,26 +19,30 @@
     <div id="map" style="width: 800px; height: 600px"></div>
  <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
 <script>
+       	// Set the default screen.
         var map = L.map('map').setView([42.369373, -72.639241], 9);
-
+        // Info: http://developers.cloudmade.com/projects/tiles/documents
         L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
             key: 'BC9A493B41014CAABB98F0471D759707'
-        }).addTo(map);
-
-        L.geoJson(counties, { // Our data, an array from `ogr2ogr` output
+        }).addTo(map); 
+		// Our data, an array from `ogr2ogr` output
+        L.geoJson(counties, { 
             style: function (feature) {
-                return {color: "blue"}; //Display color, our data does not have specific colors in the shapefile prodided.
+            	//Display color, our data does not have specific colors in the shapefile prodided.
+                return {color: "blue"}; 
             },
             onEachFeature: function (feature, layer) {
-                layer.bindPopup("NOPE"); // description but not determinate by the item. Can call FIPS-id to describe.
+            	// description but not determinate by the item. Can call FIPS-id to describe.
+                layer.bindPopup("NOPE"); 
             }
         }).addTo(map);
 
         L.geoJson(communityactionarea, {
             style: {color: "red"}
         }).addTo(map);
-        // Bind to zoom information
+        // Bind to zoom/pan information
+        // For development ease, remove on deploy.
         map.on("zoomend", function(){console.log(map.getZoom())});
         map.on("moveend", function(){console.log(map.getCenter().toString())});
 
