@@ -25,6 +25,15 @@
 			key: 'BC9A493B41014CAABB98F0471D759707'
 		}).addTo(map);
 
+		L.geoJson(counties, {
+		    style: function (feature) {
+		        return {color: "blue"};
+		    },
+		    onEachFeature: function (feature, layer) {
+		        layer.bindPopup("NOPE");
+		    }
+		}).addTo(map);
+
 
 	</script>
 </body>
