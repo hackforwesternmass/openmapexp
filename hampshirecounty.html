@@ -7,8 +7,9 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
- <script type="text/javascript" charset="utf-8" src="./counties.json">
- </script>
+ <script type="text/javascript" charset="utf-8" src="./counties.json"> </script>
+ <script type="text/javascript" charset="utf-8" src="./CommunityActionServiceArea.json"></script>
+
  <!--[if lte IE 8]>
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
  <![endif]-->
@@ -32,6 +33,10 @@
 		    onEachFeature: function (feature, layer) {
 		        layer.bindPopup("NOPE"); // description but not determinate by the item. Can call FIPS-id to describe.
 		    }
+		}).addTo(map);
+
+		L.geoJson(communityactionarea, {
+			style: {color: "red"}
 		}).addTo(map);
 
 
