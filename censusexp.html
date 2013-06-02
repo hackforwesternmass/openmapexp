@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,21 @@
      <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
  <![endif]-->
     <!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+    <script type="text/javascript">
+	var serviceAreaCenter = [42.369373, -72.639241];
+	var fuelGaugeIcon = L.icon(
+	{
+		iconUrl: './fuel_gauge_www.fotosearch.com.jpg',
+		iconSize: [46, 32],
+		/*iconRetinaUrl: 'my-icon@2x.png',
+		iconAnchor: [22, 94],
+		popupAnchor: [-3, -76],
+		shadowUrl: 'my-icon-shadow.png',
+		shadowRetinaUrl: 'my-icon-shadow@2x.png',
+		shadowSize: [68, 95],
+		shadowAnchor: [22, 94]*/
+	});
+	</script>
 </head>
 <body>
     <div id="map" style="width: 800px; height: 600px"></div>
@@ -49,7 +63,7 @@
         // For development ease, remove on deploy.
         map.on("zoomend", function(){console.log(map.getZoom())});
         map.on("moveend", function(){console.log(map.getCenter().toString())});
-
+	L.marker(serviceAreaCenter, { title: 'Community ACTION Service Area', icon: fuelGaugeIcon } ).addTo(map)
     </script>
 </body>
 </html>
