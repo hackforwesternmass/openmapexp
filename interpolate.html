@@ -1,0 +1,79 @@
+<script>
+var startValue = {h: 0, s: 0.69, v: 0.97};
+var endValue = {h: 47, s: 0.56, v: 0.96};
+
+function HSVtoRGB(h,s,v) {
+    if(s === 0){
+        r=v;
+        g=v;
+	b=v;
+    } else {
+    	    var i,f,m,n,k;
+	    
+	    i=Math.floor(h/60);
+	    f=h/60-i;
+	    m=v*(1-s);
+	    n=v*(1-s*f);
+	    k=v*(1-s*(1-f));
+	    
+	    switch(i){
+		case 0:
+		    r=v;g=k;b=m;
+		    break;
+		case 1:
+		    r=n;g=v;b=m;
+		    break;
+		case 2:
+		    r=m;g=v;b=k;
+		    break;
+		case 3:
+		    r=m;g=n;b=v;
+		    break;
+		case 4:
+		    r=k;g=m;b=v;
+		    break;
+		case 5:
+		    r=v;g=m;b=n;
+		    break;
+		default:
+		    break;
+	    }
+    }
+    
+    r = Math.floor(r*0xff).toString(16);
+    g = Math.floor(g*0xff).toString(16);
+    b = Math.floor(b*0xff).toString(16);
+    
+    r = r.length == 1 ? r='0'+r : r ;
+    g = g.length == 1 ? g='0'+g : g ;
+    b = b.length == 1 ? b='0'+b : b ;
+    
+    return "#"+r+g+b ;
+}
+
+
+function valueToColor(value) {
+	range = endValue.h - startValue.h;
+	hue = value*range + startValue.h;
+	range = endValue.s - startValue.s;
+	sat = value*range + startValue.s;
+	range = endValue.v - startValue.v;
+	val = value*range + startValue.v;
+	console.log([hue, sat, val]);
+	
+	color = HSVtoRGB(hue, sat, val);
+	console.log(color);
+	return color;
+	
+}
+
+function test(c) {
+	document.write("<p style=\"background-color:" + valueToColor(c) + "\">test</p>");
+}
+test(0);
+test(0.2);
+test(0.4);
+test(0.6);
+test(0.8);
+test(1);
+</script>
