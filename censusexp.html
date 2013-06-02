@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Census Experiment</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+<!--<script type="text/javascript" charset="utf-8" src="./counties.json"> </script>
+ -->
+ <script type="text/javascript" charset="utf-8" src="./CommunityActionServiceArea.json"></script>
+ <!--[if lte IE 8]>
+     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+ <![endif]-->
+    <!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+</head>
+<body>
+    <div id="map" style="width: 800px; height: 600px"></div>
+ <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+<script>
+        //Get the json
+        //var communityactionarea =  $.ajax("CommunityActionServiceArea.json").done( function (data){return data}) // I don't like this.
+       	// Set the default screen.
+        var map = L.map('map').setView([42.369373, -72.639241], 9);
+        // Info: http://developers.cloudmade.com/projects/tiles/documents
+        // http://leafletjs.com/reference.html#tilelayer
+        L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
+            attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
+            key: 'BC9A493B41014CAABB98F0471D759707'
+        }).addTo(map); 
+		// Our data, an array from `ogr2ogr` output
+        // L.geoJson(counties, { 
+        //     style: function (feature) {
+        //     	//Display color, our data does not have specific colors in the shapefile prodided.
+        //         return {color: "blue"}; 
+        //     },
+        //     onEachFeature: function (feature, layer) {
+        //     	// description but not determinate by the item. Can call FIPS-id to describe.
+        //         layer.bindPopup("NOPE"); 
+        //     }
+        // }).addTo(map);
+        //Second dataset.
+        L.geoJson(communityactionarea, {
+            style: {color: "red"}
+        }).addTo(map);
+        // Bind to zoom/pan information
+        // For development ease, remove on deploy.
+        map.on("zoomend", function(){console.log(map.getZoom())});
+        map.on("moveend", function(){console.log(map.getCenter().toString())});
+
+    </script>
+</body>
+</html>
+
