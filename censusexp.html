@@ -3,40 +3,47 @@
 <head>
     <title>Census Experiment</title>
     <meta charset="utf-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
-<!--<script type="text/javascript" charset="utf-8" src="./counties.json"> </script>
- -->
- <script type="text/javascript" charset="utf-8" src="./CommunityActionServiceArea.json"></script>
- <!--[if lte IE 8]>
-     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
- <![endif]-->
- <script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+	<!--<script type="text/javascript" charset="utf-8" src="./counties.json"> </script>-->
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.5/leaflet.ie.css" />
+	<![endif]-->
+	<script src="http://cdn.leafletjs.com/leaflet-0.5/leaflet.js"></script>
     <script type="text/javascript">
-	var serviceAreaCenter = [42.369373, -72.639241];
-	var fuelGaugeIcon = L.icon(
-	{
-		iconUrl: 'http://www3.amherst.edu/~aanderson/hack/fuel_gauge_www.fotosearch.com.jpg',
-		iconSize: [46, 32],
-		/*iconRetinaUrl: 'my-icon@2x.png',
-		iconAnchor: [22, 94],
-		popupAnchor: [-3, -76],
-		shadowUrl: 'my-icon-shadow.png',
-		shadowRetinaUrl: 'my-icon-shadow@2x.png',
-		shadowSize: [68, 95],
-		shadowAnchor: [22, 94]*/
-	});
+		var map;
+		var serviceArea;
+		var serviceAreaCenter = [42.369373, -72.639241];
+		function mapServiceArea(data)
+		{ 
+			serviceArea = data;
+			L.geoJson(
+				serviceArea,
+				{ style: { color: "red" } }
+			).addTo(map); 
+		} 
+		var fuelGaugeIcon = L.icon(
+		{
+			iconUrl: 'http://www3.amherst.edu/~aanderson/hack/fuel_gauge_www.fotosearch.com.jpg',
+			iconSize: [46, 32],
+			/*iconRetinaUrl: 'my-icon@2x.png',
+			iconAnchor: [22, 94],
+			popupAnchor: [-3, -76],
+			shadowUrl: 'my-icon-shadow.png',
+			shadowRetinaUrl: 'my-icon-shadow@2x.png',
+			shadowSize: [68, 95],
+			shadowAnchor: [22, 94]*/
+		});
 	</script>
 </head>
 <body>
     <div id="map" style="width: 800px; height: 600px"></div>
-<script>
+	<script>
         //Get the json
         //var communityactionarea =  $.ajax("CommunityActionServiceArea.json").done( function (data){return data}) // I don't like this.
        	// Set the default screen.
-        var map = L.map('map').setView([42.369373, -72.639241], 9);
+        map = L.map('map').setView(serviceAreaCenter, 9);
         // Info: http://developers.cloudmade.com/projects/tiles/documents
         // http://leafletjs.com/reference.html#tilelayer
         L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
@@ -55,14 +62,12 @@
         //     }
         // }).addTo(map);
         //Second dataset.
-        L.geoJson(communityactionarea, {
-            style: {color: "red"}
-        }).addTo(map);
+		$.getJSON('./CommunityActionServiceArea.json', mapServiceArea); 
         // Bind to zoom/pan information
         // For development ease, remove on deploy.
         map.on("zoomend", function(){console.log(map.getZoom())});
         map.on("moveend", function(){console.log(map.getCenter().toString())});
-	L.marker(serviceAreaCenter, { title: 'Community ACTION Service Area', icon: fuelGaugeIcon } ).addTo(map)
+		L.marker(serviceAreaCenter, { title: 'Community ACTION Service Area', icon: fuelGaugeIcon } ).addTo(map)
     </script>
 </body>
 </html>
