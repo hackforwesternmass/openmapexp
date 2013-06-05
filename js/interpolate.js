@@ -1,4 +1,3 @@
-<script>
 // Set the colors for either end of the gradient here
 // Note that ``value`` is the same as ``brightness``
 var low_color = {hue: 0, saturation: 0.69, value: 0.97};
@@ -75,23 +74,3 @@ function value_to_color(value) {
 	}
 	return hsv_to_rgb(color.hue, color.saturation, color.value);
 }
-
-
-
-
-
-function test(c) {
-	document.write("<div style=\"background-color:" + value_to_color(c) + "\">value_to_color(" + c + ")</div>");
-}
-test(0);
-test(0.1);
-test(0.2);
-test(0.3);
-test(0.4);
-test(0.5);
-test(0.6);
-test(0.7);
-test(0.8);
-test(0.9);
-test(1);
-</script>
