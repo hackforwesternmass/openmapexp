@@ -1,8 +1,3 @@
-// Set the colors for either end of the gradient here
-// Note that ``value`` is the same as ``brightness``
-var low_color = {hue: 0, saturation: 0.69, value: 0.97};
-var high_color = {hue: 47, saturation: 0.56, value: 0.96};
-
 // Helper function
 function hsv_to_rgb(h,s,v) {
 	if(s === 0){
@@ -67,7 +62,7 @@ function hsv_to_rgb(h,s,v) {
 
 // pass a number between 0 and one, returns an html color (eg "#ffffff")
 // between low_color and high_color
-function value_to_color(value) {
+function value_to_color(value, high_color, low_color) {
 	color = {}
 	for (k in low_color) {
 		color[k] = value * (high_color[k] - low_color[k]) + low_color[k];
