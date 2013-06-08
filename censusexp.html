@@ -15,13 +15,34 @@
 		var map;
 		var serviceArea;
 		var serviceAreaCenter = [42.369373, -72.639241];
-		function mapServiceArea(data)
-		{ 
-			serviceArea = data;
-			L.geoJson(
-				serviceArea,
-				{ style: { color: "red" } }
-			).addTo(map); 
+		var layerStack = [];	// holds initial collection of layers
+		// Data to put on map initially:
+		var geoJSONStack = [
+				{
+					geoJSON: './CommunityActionServiceArea.json',
+					properties: { style: { color: "red" } }
+				},
+				{
+					geoJSON: './MassachusettsCounties.json',
+					properties: { style: { color: "gray" } }
+				},
+				{
+					geoJSON: './CommunityActionTracts.json',
+					properties: { style: { color: "black" } }
+				}
+			]
+
+		function mapGeoJSONStack(geoJSON)
+		{
+			if (geoJSON)	// called by $.getJSON, with reference to imported data
+			{
+				var geoJSONData = geoJSONStack.pop();
+				var layer = new L.geoJson(geoJSON, geoJSONData.properties);
+				layer.addTo(map1);
+				layerStack.push(layer)	// store reference
+			}
+			if (geoJSONStack.length)
+				$.getJSON(geoJSONStack[geoJSONStack.length-1].geoJSON, mapGeoJSONStack); 
 		} 
 		var fuelGaugeIcon = L.icon(
 		{
@@ -62,7 +83,7 @@
         //     }
         // }).addTo(map);
         //Second dataset.
-		$.getJSON('./CommunityActionServiceArea.json', mapServiceArea); 
+	mapGeoJSONStack();	// first call no arguments
         // Bind to zoom/pan information
         // For development ease, remove on deploy.
         map.on("zoomend", function(){console.log(map.getZoom())});
