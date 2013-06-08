@@ -69,3 +69,21 @@ function value_to_color(value, high_color, low_color) {
 	}
 	return hsv_to_rgb(color.hue, color.saturation, color.value);
 }
+
+//pass in an array of numbers and find a mapping (using normalization) to use it in value_to_color to output an array of colors
+function map_colors(data, high_color, low_color) { 
+	mmax = Math.max.apply(Math, data);
+	mmin = Math.min.apply(Math, data);
+	colordata = {};		
+	for (k in data) {
+		//console.log(data[k]);
+		metric = data[k];
+		value = (data[k] - mmin)/(mmax - mmin);
+		//console.log(value);
+		color = value_to_color(value, high_color, low_color);
+		//console.log(color);
+		colordata[metric] = color;
+		//console.log(colordata);	
+	}
+	return colordata;
+}
