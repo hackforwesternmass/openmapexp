@@ -67,9 +67,11 @@
         map = L.map('map').setView(serviceAreaCenter, 9);
         // Info: http://developers.cloudmade.com/projects/tiles/documents
         // http://leafletjs.com/reference.html#tilelayer
-        L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
+        // Tile styles can be found in lower right corner of this gallery: http://maps.cloudmade.com/editor
+        L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
             attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2012 CloudMade',
-            key: 'BC9A493B41014CAABB98F0471D759707'
+            key: 'BC9A493B41014CAABB98F0471D759707',
+            styleId: 22677
         }).addTo(map); 
 		// Our data, an array from `ogr2ogr` output
         // L.geoJson(counties, { 
