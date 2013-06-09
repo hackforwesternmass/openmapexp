@@ -86,6 +86,7 @@
         // }).addTo(map);
         //Second dataset.
 	mapGeoJSONStack();	// first call no arguments
+	L.control.scale().addTo(map);
         // Bind to zoom/pan information
         // For development ease, remove on deploy.
         map.on("zoomend", function(){console.log(map.getZoom())});
