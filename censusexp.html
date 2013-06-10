@@ -16,19 +16,23 @@
 		var serviceArea;
 		var serviceAreaCenter = [42.369373, -72.639241];
 		var layerStack = [];	// holds initial collection of layers
+		var layerControl = new L.Control.Layers();
 		// Data to put on map initially:
 		var geoJSONStack = [
 				{
 					geoJSON: './CommunityActionServiceArea.json',
-					properties: { style: { color: "red" } }
+					properties: { style: { color: '#4E6C9B', fill: false, weight: 7, opacity: 0.75 } },
+					controlName: '<span style="color: #4E6C9B;">Service Area &#x2501;&#x2501;&#x2501;&#x2501;</span>'
 				},
 				{
 					geoJSON: './MassachusettsCounties.json',
-					properties: { style: { color: "gray" } }
+					properties: { style: { color: 'black', fill: false, weight: 3 } },
+					controlName: '<span style="color: black">Counties &#x2501;&#x2501;&#x2501;&#x2501;</span>'
 				},
 				{
 					geoJSON: './CommunityActionTracts.json',
-					properties: { style: { color: "black" } }
+					properties: { style: { color: 'black', fill: false, weight: 1 } },
+					controlName: 'Census Tracts &#x2500;&#x2500;&#x2500;&#x2500;'
 				}
 			]
 
@@ -38,11 +42,14 @@
 			{
 				var geoJSONData = geoJSONStack.pop();
 				var layer = new L.geoJson(geoJSON, geoJSONData.properties);
-				layer.addTo(map1);
+				layer.addTo(map);
+				layerControl.addOverlay(layer, geoJSONData.controlName);
 				layerStack.push(layer)	// store reference
 			}
 			if (geoJSONStack.length)
-				$.getJSON(geoJSONStack[geoJSONStack.length-1].geoJSON, mapGeoJSONStack); 
+				$.getJSON(geoJSONStack[geoJSONStack.length-1].geoJSON, mapGeoJSONStack);
+			else
+				layerControl.addTo(map);
 		} 
 		var fuelGaugeIcon = L.icon(
 		{
